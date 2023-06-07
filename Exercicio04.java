@@ -1,8 +1,9 @@
+import javax.sound.midi.Soundbank;
 import java.util.*;
 
 //4. Tem-se um conjunto de dados contendo a altura e o sexo (masculino, feminino) de 10 pessoas.
 // Fazer um algoritmo que calcule e escreva:
-//a. a maior e a menor altura do grupo;
+//a. a maior e a menor altura do grupo; ok
 //b. média de altura dos homens;
 //c. o número de mulheres.
 public class Exercicio04 {
@@ -18,8 +19,12 @@ public class Exercicio04 {
         double minAltura = Double.MAX_VALUE;
         double maxAltura = Double.MIN_VALUE;
 
+        int contHomens=0;
+        double somaHomens= 0.0;
 
-        ArrayList<ArrayList<String>> dados = new ArrayList<ArrayList<String>>();
+        int contMulheres=0;
+
+        ArrayList<ArrayList<String>> dados = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             altura = alturaMinima + (random.nextDouble() * (alturaMaxima - alturaMinima));
@@ -41,26 +46,41 @@ public class Exercicio04 {
 
         for (int i = 0; i < dados.size(); i++) {
             for (int j = 0; j < 2; j++) {
-                System.out.println("dados.get(i).get(j)" + dados.get(i).get(j));
-                if (Double.compare(minAltura, Double.parseDouble((dados.get(i).get(1)))) == 0) {
-                    minAltura = Double.parseDouble(dados.get(i).get(1));
-                    System.out.println(minAltura);
-                } else if (Double.compare(minAltura, Double.parseDouble((dados.get(i).get(1)))) <= 0) {
-                    minAltura = altura;
-                    System.out.println("altura"+altura);
-                }else {
+
+                //a) maior  menor altura
+                if( Double.compare(minAltura, Double.parseDouble(dados.get(i).get(1)))==1){
+                     minAltura = Double.parseDouble(dados.get(i).get(1));
+                } if( Double.compare(maxAltura,Double.parseDouble(dados.get(i).get(1)))==-1){
                     maxAltura = Double.parseDouble(dados.get(i).get(1));
-                    System.out.println(maxAltura);
                 }
+                //b)media de altura dos homens
+
+                if(dados.get(i).get(j).equalsIgnoreCase("m")){
+                    contHomens++;
+                    somaHomens += Double.parseDouble(dados.get(i).get(1));
+
+                }
+                //c)numero de mulheres
+                if(dados.get(i).get(j).equalsIgnoreCase("f")){
+                    contMulheres++;
+
+                }
+
 
 
             }
 
         }
             //letra A
-            System.out.println("maior altura: " + maxAltura);
-            System.out.println("menor altura: " + minAltura);
-
+            System.out.printf("maior altura: %.3f", maxAltura);
+            System.out.println();
+            System.out.printf("menor altura: %.3f", minAltura);
+            System.out.println();
+            //letra B
+            System.out.printf("media altura dos homens:  %.3f", somaHomens/contHomens);
+            System.out.println();
+            //letra C
+            System.out.println("numero de mulheres "+ contMulheres);
             System.out.println(dados);
 
     }
